@@ -1,24 +1,65 @@
 package com.example.lab03.entity;
 
-import com.example.lab03.entity.Base.BasEntity;
-import com.example.lab03.entity.myEnum.ProductEnum;
+import com.example.lab03.entity.Base.BaseEntity;
+import com.example.lab03.entity.myEnum.ProductStatus;
 
-public class Product extends BasEntity {
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 
+import static com.example.lab03.util.StringValidationHelper.checkValidEmail;
+import static com.example.lab03.util.StringValidationHelper.checkValidPhone;
+
+public class Product extends BaseEntity {
     private int id;
-    private String name;
-    private String description;
-    private String detail;
-    private double price;
-    private String thumbnail;
-    private String manufactureEmail;
-    private String manufacturePhone;
-    private ProductEnum status;
+    private String name = "";
+    private String description = "";
+    private String detail = "";
+    private BigDecimal price = BigDecimal.valueOf(0);
+    private String thumbnail = "";
+    private String manufactureEmail = "";
+    private String manufacturePhone = "";
+    private ProductStatus status;
+    private HashMap<String, String> errors = new HashMap<>();
 
     public Product() {
     }
 
-    public Product(int id, String name, String description, String detail, double price, String thumbnail, String manufactureEmail, String manufacturePhone, ProductEnum status) {
+    public Product(int id, String name, String description, String detail, String price, String thumbnail, String manufactureEmail, String manufacturePhone, int status) {
+    }
+
+    public Product(int id, String name, String description, String detail, Double price, String thumbnail, String manufactureEmail, String manufacturePhone, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, ProductStatus status) {
+    }
+
+    public boolean isValid() {
+        checkValid();
+        return errors.size() == 0;
+    }
+
+    private void checkValid() {
+        if (name == null || name.length() == 0) {
+            errors.put("name", "Please enter name");
+        }
+        if (description == null || description.length() == 0) {
+            errors.put("description", "Please enter description");
+        }
+        if (thumbnail == null || thumbnail.length() == 0) {
+            errors.put("thumbnail", "Please enter thumbnail.");
+        }
+        if (manufacturePhone == null || manufacturePhone.length() == 0) {
+            errors.put("phone", "Please enter manufacture phone");
+        }
+        if (manufacturePhone != null && manufacturePhone.length() > 0 && !checkValidPhone(manufacturePhone)) {
+            errors.put("phoneValid", "Manufacture phone number is not in the correct format");
+        }
+        if (manufactureEmail == null || manufactureEmail.length() == 0) {
+            errors.put("email", "Please enter manufacture email");
+        }
+        if (manufactureEmail != null && manufactureEmail.length() > 0 && !checkValidEmail(manufactureEmail)) {
+            errors.put("emailValid", "Manufacture email is not in the correct format");
+        }
+    }
+    public Product(int id, String name, String description, String detail, BigDecimal price, String thumbnail, String manufactureEmail, String manufacturePhone, ProductStatus status, HashMap<String, String> errors) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,21 +69,21 @@ public class Product extends BasEntity {
         this.manufactureEmail = manufactureEmail;
         this.manufacturePhone = manufacturePhone;
         this.status = status;
+        this.errors = errors;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", detail='" + detail + '\'' +
-                ", price=" + price +
-                ", thumbnail='" + thumbnail + '\'' +
-                ", manufactureEmail='" + manufactureEmail + '\'' +
-                ", manufacturePhone='" + manufacturePhone + '\'' +
-                ", status=" + status +
-                '}';
+    public Product(LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, int id, String name, String description, String detail, BigDecimal price, String thumbnail, String manufactureEmail, String manufacturePhone, ProductStatus status, HashMap<String, String> errors) {
+        super(createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy);
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.detail = detail;
+        this.price = price;
+        this.thumbnail = thumbnail;
+        this.manufactureEmail = manufactureEmail;
+        this.manufacturePhone = manufacturePhone;
+        this.status = status;
+        this.errors = errors;
     }
 
     public int getId() {
@@ -77,11 +118,11 @@ public class Product extends BasEntity {
         this.detail = detail;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -109,11 +150,19 @@ public class Product extends BasEntity {
         this.manufacturePhone = manufacturePhone;
     }
 
-    public ProductEnum getStatus() {
+    public ProductStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ProductEnum status) {
+    public void setStatus(ProductStatus status) {
         this.status = status;
+    }
+
+    public HashMap<String, String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(HashMap<String, String> errors) {
+        this.errors = errors;
     }
 }
