@@ -1,4 +1,4 @@
-package com.example.lab03.controller;
+package com.example.lab03.controller.product;
 
 import com.example.lab03.entity.Product;
 import com.example.lab03.model.MySqlProductModel;

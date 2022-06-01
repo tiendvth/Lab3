@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>product</servlet-name>
-        <servlet-class>com.example.lab03.controller.ProductServlet</servlet-class>
+        <servlet-class>com.example.lab03.controller.product.ProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>product</servlet-name>
@@ -15,11 +15,28 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>list-product</servlet-name>
-        <servlet-class>com.example.lab03.controller.ListProductServlet</servlet-class>
+        <servlet-class>com.example.lab03.controller.product.ListProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>list-product</servlet-name>
         <url-pattern>/list-product</url-pattern>
+    </servlet-mapping>
+<!--category-->
+    <servlet>
+        <servlet-name>category</servlet-name>
+        <servlet-class>com.example.lab03.controller.category.CategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>category</servlet-name>
+        <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>list-category</servlet-name>
+        <servlet-class>com.example.lab03.controller.category.ListCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>list-product</servlet-name>
+        <url-pattern>/list-category</url-pattern>
     </servlet-mapping>
 
 </web-app>
