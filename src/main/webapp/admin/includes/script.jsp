@@ -1,11 +1,23 @@
-<%--
- Created by IntelliJ IDEA.
-  User: tiendangvan
-  Date: 01/06/2022
-  Time: 20:48
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="${pageContext.request.contextPath}/admin/vendor/global/global.min.js"></script>
-<script src="${pageContext.request.contextPath}/admin/js/quixnav-init.js"></script>
-<script src="${pageContext.request.contextPath}/admin/js/custom.min.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
+<script src="/admin/assets/plugins/jquery/jquery.min.js"></script>
+<script src="/admin/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/admin/assets/plugins/toaster/toastr.min.js"></script>
+<script src="/admin/assets/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+<script src="/admin/assets/plugins/charts/Chart.min.js"></script>
+<script src="/admin/assets/plugins/ladda/spin.min.js"></script>
+<script src="/admin/assets/plugins/ladda/ladda.min.js"></script>
+<script src="/admin/assets/plugins/jquery-mask-input/jquery.mask.min.js"></script>
+<script src="/admin/assets/plugins/select2/js/select2.min.js"></script>
+<script src="/admin/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="/admin/assets/plugins/jvectormap/jquery-jvectormap-world-mill.js"></script>
+<script src="/admin/assets/plugins/daterangepicker/moment.min.js"></script>
+<script src="/admin/assets/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/admin/assets/plugins/jekyll-search.min.js"></script>
+<script src="/admin/assets/js/sleek.js"></script>
+<script src="/admin/assets/js/chart.js"></script>
+<script src="/admin/assets/js/date-range.js"></script>
+<script src="/admin/assets/js/map.js"></script>
+<script src="/admin/assets/js/custom.js"></script>
+
+

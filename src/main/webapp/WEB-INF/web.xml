@@ -6,37 +6,84 @@
 
 
     <servlet>
-        <servlet-name>product</servlet-name>
-        <servlet-class>com.example.lab03.controller.product.ProductServlet</servlet-class>
+        <servlet-name>DemoForm</servlet-name>
+        <jsp-file>/admin/pages/demo/form.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>product</servlet-name>
-        <url-pattern>/product</url-pattern>
+        <servlet-name>DemoForm</servlet-name>
+        <url-pattern>/demo-form</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>list-product</servlet-name>
-        <servlet-class>com.example.lab03.controller.product.ListProductServlet</servlet-class>
+        <servlet-name>DemoList</servlet-name>
+        <jsp-file>/admin/pages/demo/list.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>list-product</servlet-name>
-        <url-pattern>/list-product</url-pattern>
-    </servlet-mapping>
-<!--category-->
-    <servlet>
-        <servlet-name>category</servlet-name>
-        <servlet-class>com.example.lab03.controller.category.CategoryServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>category</servlet-name>
-        <url-pattern>/category</url-pattern>
+        <servlet-name>DemoList</servlet-name>
+        <url-pattern>/demo-list</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>list-category</servlet-name>
-        <servlet-class>com.example.lab03.controller.category.ListCategoryServlet</servlet-class>
+        <servlet-name>ListCategoryServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.category.ListCategoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>list-product</servlet-name>
-        <url-pattern>/list-category</url-pattern>
+        <servlet-name>ListCategoryServlet</servlet-name>
+        <url-pattern>/admin/categories</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CreateCategoryServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.category.CreateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateCategoryServlet</servlet-name>
+        <url-pattern>/admin/categories/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.category.UpdateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <url-pattern>/admin/categories/update</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteCategoryServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.category.DeleteCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCategoryServlet</servlet-name>
+        <url-pattern>/admin/categories/delete</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ListProductServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.product.ListProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListProductServlet</servlet-name>
+        <url-pattern>/admin/products</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.product.CreateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <url-pattern>/admin/products/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.product.UpdateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <url-pattern>/admin/products/update</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.admin.product.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/admin/products/delete</url-pattern>
     </servlet-mapping>
 
 </web-app>
