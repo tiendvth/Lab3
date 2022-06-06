@@ -2,7 +2,7 @@ package com.example.com.example.lab03.entity.Base;
 
 import java.time.LocalDateTime;
 
-public class BaseEntity {
+public class  BaseEntity {
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
     public LocalDateTime deletedAt;

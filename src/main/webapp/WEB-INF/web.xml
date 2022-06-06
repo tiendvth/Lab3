@@ -86,4 +86,44 @@
         <url-pattern>/admin/products/delete</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddCartServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.client.shoppingCart.AddCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddCartServlet</servlet-name>
+        <url-pattern>/shopping-cart/add</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SubCartServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.client.shoppingCart.SubCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubCartServlet</servlet-name>
+        <url-pattern>/shopping-cart/sub</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetCartServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.client.shoppingCart.GetCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCartServlet</servlet-name>
+        <url-pattern>/shopping-cart/get</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RemoveCartServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.client.shoppingCart.RemoveCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveCartServlet</servlet-name>
+        <url-pattern>/shopping-cart/remove</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ListProductClientServlet</servlet-name>
+        <servlet-class>com.example.com.example.lab03.controller.client.product.ListProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListProductClientServlet</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -36,7 +36,6 @@ public class CreateCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        res.setCharacterEncoding("UTF-8");
         res.setContentType("text/html; charset=UTF-8");
         String name = req.getParameter("name");
         int status = Integer.parseInt(req.getParameter("status"));
