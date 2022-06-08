@@ -19,7 +19,7 @@ public class Product extends BaseEntity {
     private ProductStatus status;
     private HashMap<String, String> errors;
 
-    public Product() {
+    public Product(int id, String name, String thumbnail, Double price, int categoryId, String description, String detail, ProductStatus of) {
         this.name = "";
         this.description = "";
         this.detail = "";
@@ -225,7 +225,7 @@ public class Product extends BaseEntity {
         }
 
         public Product build() {
-            Product product = new Product();
+            Product product = new Product(id, name, thumbnail, price, categoryId, description, detail, ProductStatus.of(status));
             product.setId(id);
             product.setName(name);
             product.setDescription(description);
@@ -244,7 +244,7 @@ public class Product extends BaseEntity {
         }
 
         public Product build2() {
-            Product product = new Product();
+            Product product = new Product(id, name, thumbnail, price, categoryId, description, detail, ProductStatus.of(status));
             product.setId(id);
             product.setName(name);
             product.setDescription(description);

@@ -30,7 +30,7 @@
     }
     Product product = (Product) request.getAttribute("product");
     if (product == null) {
-        product = new Product();
+        product = new Product(id, name, thumbnail, price, categoryId, description, detail, ProductStatus.of(status));
     }
 %>
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">

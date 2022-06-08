@@ -12,45 +12,40 @@ import java.util.List;
 
 public class MySqlCategoryModel implements CategoryModel {
     @Override
-    public boolean create(Category category) {
-        try{
+    public boolean create(Category obj) {
+        try {
             Connection connection = ConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_INSERT);
-            preparedStatement.setString(1, category.getName());
-            preparedStatement.setInt(2, category.getParentId());
-            preparedStatement.setString(3, category.getCreatedAt().toString());
-            preparedStatement.setString(4, category.getUpdatedAt().toString());
-            preparedStatement.setInt(5, category.getCreatedBy());
-            preparedStatement.setInt(6, category.getUpdatedBy());
-            preparedStatement.setInt(7, category.getStatus().getValue());
-            return preparedStatement.executeUpdate() > 0;
-        }catch (SQLException e) {
-            e.printStackTrace();
+            PreparedStatement preparedStatement
+                    = connection.prepareStatement(SqlConstant.CATEGORY_INSERT);
+            preparedStatement.setString(1, obj.getName());
+            preparedStatement.setString(2, obj.getCreatedAt().toString());
+            preparedStatement.setString(3, obj.getUpdatedAt().toString());
+            preparedStatement.setInt(4, obj.getCreatedBy());
+            preparedStatement.setInt(5, obj.getUpdatedBy());
+            preparedStatement.setInt(6, obj.getStatus().getValue());
+            preparedStatement.execute();
+            return true;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public boolean update(int id, Category category) {
-        try{
-            Connection connection = ConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_UPDATE);
-            preparedStatement.setString(1, category.getName());
-            preparedStatement.setInt(2, category.getParentId());
-            preparedStatement.setString(3, category.getCreatedAt().toString());
-            preparedStatement.setString(4, category.getUpdatedAt().toString());
-            if(category.getDeletedAt() != null) {
-                preparedStatement.setString(5, category.getDeletedAt().toString());
-            }else {
-                preparedStatement.setString(5, null);
-            }
-            preparedStatement.setInt(6, category.getCreatedBy());
-            preparedStatement.setInt(7, category.getUpdatedBy());
-            preparedStatement.setInt(8, category.getDeletedBy());
-            preparedStatement.setInt(9, category.getStatus().getValue());
-            preparedStatement.setInt(10, id);
-            return preparedStatement.executeUpdate() > 0;
-        }catch (SQLException e) {
+    public boolean update(int id, Category updateObj) {
+        Connection connection = ConnectionHelper.getConnection();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(SqlConstant.CATEGORY_UPDATE);
+            preparedStatement.setString(1, updateObj.getName());
+            preparedStatement.setString(2, updateObj.getUpdatedAt().toString());
+            preparedStatement.setInt(3, updateObj.getUpdatedBy());
+            preparedStatement.setInt(4, updateObj.getStatus().getValue());
+            preparedStatement.setInt(5, id);
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -58,85 +53,88 @@ public class MySqlCategoryModel implements CategoryModel {
 
     @Override
     public boolean delete(int id) {
-        try{
-            Connection connection = ConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_DELETE);
-            preparedStatement.setInt(1, id);
-            return preparedStatement.executeUpdate() > 0;
-        }catch (SQLException e) {
-            System.out.println(e);
+        Connection connection = ConnectionHelper.getConnection();
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(SqlConstant.CATEGORY_DELETE);
+            preparedStatement.setInt(1, CategoryStatus.DELETED.getValue());
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public Category findById(int id) {
-        try{
+    public List<Category> findAll() {
+        List<Category> listObj = new ArrayList<>();
+        try {
             Connection connection = ConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_FIND_BY_ID);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, CategoryStatus.ACTIVE.getValue());
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()) {
-                return resultSetToCategory(rs);
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(SqlConstant.CATEGORY_SELECT_ALL);
+            preparedStatement.setInt(1, CategoryStatus.ACTIVE.getValue());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Category obj = convertResultSetToCategory(resultSet);
+                if (obj != null) {
+                    listObj.add(obj);
+                }
+
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listObj;
+    }
+
+    @Override
+    public Category findById(int id) {
+        try {
+            Connection connection = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement(SqlConstant.CATEGORY_SELECT_BY_ID);
+            preparedStatement.setInt(1, CategoryStatus.ACTIVE.getValue());
+            preparedStatement.setInt(2, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return convertResultSetToCategory(resultSet);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    @Override
-    public List<Category> findAll() {
-        List<Category> categories = new ArrayList<>();
-        try{
-            Connection connection = ConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_FIND_ALL);
-            preparedStatement.setInt(1, CategoryStatus.ACTIVE.getValue());
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()) {
-                Category product = resultSetToCategory(rs);
-                if(product != null) {
-                    categories.add(product);
-                }
-            }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return categories;
-    }
-
-    public Category resultSetToCategory(ResultSet rs)
-    {
-        try{
-            int id = Integer.parseInt(rs.getString(SqlConstant.CATEGORY_FIELD_ID));
-            String name = rs.getString(SqlConstant.CATEGORY_FIELD_NAME);
-            int parentId = rs.getInt(SqlConstant.CATEGORY_FIELD_PARENT_ID);
-            LocalDateTime createdAt = rs.getTimestamp(SqlConstant.FIELD_CREATED_AT).toLocalDateTime();
-            LocalDateTime updatedAt = rs.getTimestamp(SqlConstant.FIELD_UPDATED_AT).toLocalDateTime();
+    private Category convertResultSetToCategory(ResultSet resultSet) {
+        try {
+            int id = resultSet.getInt(SqlConstant.CATEGORY_FIELD_ID);
+            String name = resultSet.getString(SqlConstant.CATEGORY_FIELD_NAME);
+            int status = resultSet.getInt(SqlConstant.CATEGORY_FIELD_STATUS);
+            LocalDateTime createdAt = resultSet.getTimestamp(SqlConstant.FIELD_CREATED_AT).toLocalDateTime();
+            LocalDateTime updatedAt = resultSet.getTimestamp(SqlConstant.FIELD_UPDATED_AT).toLocalDateTime();
             LocalDateTime deletedAt = null;
-            if(rs.getTimestamp(SqlConstant.FIELD_DELETED_AT) != null) {
-                deletedAt = rs.getTimestamp(SqlConstant.FIELD_DELETED_AT).toLocalDateTime();
+            Timestamp timestamp = resultSet.getTimestamp(SqlConstant.FIELD_DELETED_AT);
+            if (timestamp != null) {
+                deletedAt = timestamp.toLocalDateTime();
             }
-            int createdBy = rs.getInt(SqlConstant.FIELD_CREATED_BY);
-            int updatedBy = rs.getInt(SqlConstant.FIELD_UPDATED_BY);
-            int deletedBy = rs.getInt(SqlConstant.FIELD_DELETED_BY);
-            CategoryStatus status = CategoryStatus.of(rs.getInt(SqlConstant.CATEGORY_FIELD_STATUS));
+            int createdBy = resultSet.getInt(SqlConstant.FIELD_CREATED_BY);
+            int updatedBy = resultSet.getInt(SqlConstant.FIELD_UPDATED_BY);
+            int deletedBy = resultSet.getInt(SqlConstant.FIELD_DELETED_BY);
             return Category.CategoryBuilder.aCategory()
                     .withId(id)
                     .withName(name)
-                    .withParentId(parentId)
+                    .withStatus(CategoryStatus.of(status))
                     .withCreatedAt(createdAt)
                     .withUpdatedAt(updatedAt)
                     .withDeletedAt(deletedAt)
                     .withCreatedBy(createdBy)
                     .withUpdatedBy(updatedBy)
                     .withDeletedBy(deletedBy)
-                    .withStatus(status)
                     .build();
-        }catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ex) {
+            return null;
         }
-        return null;
     }
 }

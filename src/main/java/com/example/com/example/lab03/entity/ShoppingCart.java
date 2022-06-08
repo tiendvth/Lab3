@@ -25,18 +25,21 @@ public class ShoppingCart {
 
 
     public  boolean add(Product product, int quantity) {
-
-        if ((item == null)) {
-            item = new HashMap<>();
-        }
         CartItem cartItem = null;
-        if (item.containsKey(product.getId())){
+        if (item.containsKey(product.getId())) {
             cartItem = item.get(product.getId());
-            cartItem.setQuantity((cartItem.getQuantity() + quantity));
-        } else  {
-            cartItem = cartItem.CartItemBuider.aCartItem;
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        } else {
+            cartItem = CartItem.CartItemBuilder.aCartItem()
+                    .withProductId(product.getId())
+                    .withProductName(product.getName())
+                    .withProductThumbnail(product.getThumbnail())
+                    .withUnitPrice(product.getPrice())
+                    .withQuantity(quantity)
+                    .build();
         }
-        return  true;
+        item.put(product.getId(), cartItem);
+        return true;
     }
     public boolean sub(Product product, int quantity) {
         CartItem cartItem = null;

@@ -11,4 +11,6 @@ public interface ProductModel {
     boolean delete(int id);
     Product findById(int id);
     List<Product> findAll();
+
+    Product findByProductName(String productName);
 }

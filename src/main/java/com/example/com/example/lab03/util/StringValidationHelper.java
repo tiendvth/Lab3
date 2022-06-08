@@ -22,7 +22,10 @@ public class StringValidationHelper {
         Matcher matcher = VALID_PHONE_REGEX.matcher(phone);
         return matcher.find();
     }
-
+    public static boolean checkValidEmail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
     public static boolean validateVietnamesePhone(String phone) {
         Matcher matcher = VALID_VIETNAMESE_PHONE_REGEX.matcher(phone);
         return matcher.find();
